@@ -3,8 +3,8 @@ import SwiftUI
 
 @main
 struct exportWidgets: WidgetBundle {
-    var body: some Widget {
-        // Export widgets here
-        widgetControl()
-    }
+  var body: some Widget {
+    // Export widgets here
+    LightsToggle()
+  }
 }
