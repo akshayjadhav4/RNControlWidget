@@ -1,22 +1,22 @@
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { SafeAreaView, StyleSheet } from "react-native";
 
-export default function HomeScreen() {
+import HomeScreen from "../screens/HomeScreen";
+import { DeviceProvider } from "@/context/DeviceContext";
+
+export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Hello World</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <DeviceProvider>
+        <HomeScreen />
+      </DeviceProvider>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
     backgroundColor: "#fff",
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: "bold",
   },
 });
