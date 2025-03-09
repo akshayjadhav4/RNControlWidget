@@ -60,8 +60,6 @@ struct LightsToggleIntent: SetValueIntent {
     let isOn = intToBool(intValue)
     setDeviceState(for: .lights, value: isOn ? 0 : 1) // Toggle: 1 → 0, 0 → 1
     
-    await WidgetCenter.shared.reloadTimelines(ofKind: LightsToggle.kind)
-    
     return .result()
   }
 }
