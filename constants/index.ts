@@ -1,5 +1,5 @@
 // Storage key for AsyncStorage
-export const STORAGE_KEY = "group.smartHome.deviceStates";
+export const STORAGE_KEY = "group.com.anonymous.smart-home";
 
 // Default device states
 export const DEFAULT_DEVICE_STATES = {

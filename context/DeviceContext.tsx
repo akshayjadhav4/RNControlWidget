@@ -5,14 +5,16 @@ import React, {
   useEffect,
   ReactNode,
 } from "react";
-import { DeviceState, DeviceType } from "@/types";
-import { DEFAULT_DEVICE_STATES } from "@/constants";
+import { DeviceState, DeviceType, DEVICE_ID_MAP } from "@/types";
+import { DEFAULT_DEVICE_STATES, STORAGE_KEY } from "@/constants";
 import {
   loadDeviceStates,
   saveDeviceStates,
   resetDeviceStates,
 } from "@/services/storageService";
+import { ExtensionStorage } from "@bacons/apple-targets";
 
+const storage = new ExtensionStorage(STORAGE_KEY);
 interface DeviceContextType {
   deviceStates: DeviceState;
   updateDeviceState: (device: DeviceType, value: boolean | number) => void;
@@ -58,6 +60,7 @@ export const DeviceProvider: React.FC<{ children: ReactNode }> = ({
 
     setDeviceStates(updatedStates);
     await saveDeviceStates(updatedStates);
+    updateWidget(device, value);
   };
 
   // Reset all device states to defaults
@@ -88,3 +91,17 @@ export const useDevices = (): DeviceContextType => {
   }
   return context;
 };
+
+function updateWidget(device: DeviceType, value: boolean | number) {
+  const deviceId = DEVICE_ID_MAP[device];
+  const key = `deviceState_${deviceId}`;
+
+  if (typeof value === "boolean") {
+    storage.set(key, value ? 1 : 0);
+  } else {
+    storage.set(key, value);
+  }
+
+  // Reload the widget
+  ExtensionStorage.reloadWidget();
+}
