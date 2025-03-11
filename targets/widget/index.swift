@@ -5,6 +5,8 @@ import SwiftUI
 struct exportWidgets: WidgetBundle {
   var body: some Widget {
     // Export widgets here
-    LightsToggle()
+    if #available(iOSApplicationExtension 18, *) {
+      DeviceToggle()
+    }
   }
 }
