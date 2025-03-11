@@ -1,0 +1,55 @@
+diff --git a/node_modules/@bacons/apple-targets/build/ExtensionStorage.d.ts b/node_modules/@bacons/apple-targets/build/ExtensionStorage.d.ts
+index 36d0802..a9f0ef5 100644
+--- a/node_modules/@bacons/apple-targets/build/ExtensionStorage.d.ts
++++ b/node_modules/@bacons/apple-targets/build/ExtensionStorage.d.ts
+@@ -1,6 +1,7 @@
+ export declare class ExtensionStorage {
+     private readonly appGroup;
+     static reloadWidget(name?: string): void;
++    static reloadControls(name?: string): void;
+     constructor(appGroup: string);
+     set(key: string, value?: string | number | Record<string, string | number> | Array<Record<string, string | number>>): void;
+ }
+diff --git a/node_modules/@bacons/apple-targets/build/ExtensionStorage.js b/node_modules/@bacons/apple-targets/build/ExtensionStorage.js
+index b1aca67..87d00d6 100644
+--- a/node_modules/@bacons/apple-targets/build/ExtensionStorage.js
++++ b/node_modules/@bacons/apple-targets/build/ExtensionStorage.js
+@@ -8,6 +8,7 @@ const nativeModule = ExtensionStorageModule !== null && ExtensionStorageModule !
+     setInt() { },
+     setString() { },
+     reloadWidget() { },
++    reloadControls() { },
+     setObject() { },
+     remove() { },
+     setArray() { },
+@@ -24,6 +25,9 @@ class ExtensionStorage {
+     static reloadWidget(name) {
+         nativeModule.reloadWidget(name);
+     }
++    static reloadControls(name) {
++        nativeModule.reloadControls(name);
++    }   
+     constructor(appGroup) {
+         this.appGroup = appGroup;
+     }
+diff --git a/node_modules/@bacons/apple-targets/ios/ExtensionStorageModule.swift b/node_modules/@bacons/apple-targets/ios/ExtensionStorageModule.swift
+index 2e25ae9..c2c3f57 100644
+--- a/node_modules/@bacons/apple-targets/ios/ExtensionStorageModule.swift
++++ b/node_modules/@bacons/apple-targets/ios/ExtensionStorageModule.swift
+@@ -17,6 +17,16 @@ public class ExtensionStorageModule: Module {
+             }
+         }
+ 
++        Function("reloadControls") { (kind: String?) in
++            if #available(iOS 18.0, *) {
++                if let kind = kind {
++                    ControlCenter.shared.reloadControls(ofKind: kind)
++                } else {
++                    ControlCenter.shared.reloadAllControls()
++                }
++            }
++        }
++        
+         Function("setArray") { (forKey: String, data: [[String: Any]], suiteName: String?) -> Bool in
+             // Convert the incoming array of dictionaries directly to JSON data
+             do {
