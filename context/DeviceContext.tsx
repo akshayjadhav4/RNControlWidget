@@ -5,7 +5,7 @@ import React, {
   useEffect,
   ReactNode,
 } from "react";
-import { DeviceState, DeviceType } from "@/types";
+import { DeviceState, DeviceType, DEVICE_ID_MAP } from "@/types";
 import { DEFAULT_DEVICE_STATES, STORAGE_KEY } from "@/constants";
 import {
   loadDeviceStates,
@@ -93,11 +93,15 @@ export const useDevices = (): DeviceContextType => {
 };
 
 function updateWidget(device: DeviceType, value: boolean | number) {
+  const deviceId = DEVICE_ID_MAP[device];
+  const key = `deviceState_${deviceId}`;
+
   if (typeof value === "boolean") {
-    storage.set(device, value ? 1 : 0);
+    storage.set(key, value ? 1 : 0);
   } else {
-    storage.set(device, value);
+    storage.set(key, value);
   }
+
   // Reload the widget
   ExtensionStorage.reloadWidget();
 }

@@ -1,13 +1,21 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { DeviceState } from "@/types";
-import { DEFAULT_DEVICE_STATES, STORAGE_KEY } from "@/constants";
+import { DeviceState, DeviceType, DEVICE_ID_MAP } from "@/types";
+import { DEFAULT_DEVICE_STATES } from "@/constants";
 
 /**
  * Save device states to AsyncStorage
  */
 export const saveDeviceStates = async (states: DeviceState): Promise<void> => {
   try {
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(states));
+    // Save each device state using the widget-compatible key format
+    for (const [device, value] of Object.entries(states) as [
+      DeviceType,
+      boolean | number
+    ][]) {
+      const deviceId = DEVICE_ID_MAP[device];
+      const key = `deviceState_${deviceId}`;
+      await AsyncStorage.setItem(key, value.toString());
+    }
   } catch (error) {
     console.error("Error saving device states:", error);
   }
@@ -18,13 +26,26 @@ export const saveDeviceStates = async (states: DeviceState): Promise<void> => {
  */
 export const loadDeviceStates = async (): Promise<DeviceState> => {
   try {
-    const statesJson = await AsyncStorage.getItem(STORAGE_KEY);
-    if (statesJson) {
-      return JSON.parse(statesJson);
+    const states = { ...DEFAULT_DEVICE_STATES };
+
+    // Load each device state using the widget-compatible key format
+    for (const [device, deviceId] of Object.entries(DEVICE_ID_MAP) as [
+      DeviceType,
+      string
+    ][]) {
+      const key = `deviceState_${deviceId}`;
+      const value = await AsyncStorage.getItem(key);
+
+      if (value !== null) {
+        if (device === "thermostat") {
+          states[device] = parseInt(value, 10);
+        } else {
+          states[device] = value === "1" || value === "true";
+        }
+      }
     }
-    // If no states found, save and return defaults
-    await saveDeviceStates(DEFAULT_DEVICE_STATES);
-    return DEFAULT_DEVICE_STATES;
+
+    return states;
   } catch (error) {
     console.error("Error loading device states:", error);
     return DEFAULT_DEVICE_STATES;

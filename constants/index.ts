@@ -27,7 +27,3 @@ export const SPACING = {
   medium: 15,
   large: 20,
 };
-
-export const WIDGET_KIND = {
-  lights: "com.anonymous.smart-home.LightsToggle",
-};
