@@ -103,5 +103,5 @@ function updateWidget(device: DeviceType, value: boolean | number) {
   }
 
   // Reload the widget
-  ExtensionStorage.reloadWidget();
+  ExtensionStorage.reloadControls();
 }
