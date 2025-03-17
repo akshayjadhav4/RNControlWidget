@@ -10,6 +10,7 @@ This project demonstrates how to create Control Widgets using @bacons/apple-targ
 - 📱 Integration with System Spaces – Add widgets to Control Center, the Lock Screen, and the Action button.
 - ⚡ Built with WidgetKit – Uses Apple’s latest framework for seamless performance.
 - 🛠 Powered by @bacons/apple-targets – Automates the setup of Apple targets in Expo projects.
+- 🔄 State Syncing – Widgets can be synced from the app
 
 ## 🛠 Setup & Installation
 1.	Clone the repository:
