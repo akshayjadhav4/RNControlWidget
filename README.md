@@ -1,3 +1,65 @@
+# 🚀 iOS Control Widgetd in Expo App
+
+Ever wished you could replace the Lock Screen’s flashlight and camera shortcuts with something more useful—like a quick toggle for smart home controls or an instant app action? With iOS 18, that’s now possible! Control Widgets let apps integrate directly into system spaces like Control Center, the Lock Screen, and the Action button, making key actions more accessible than ever.
+
+This project is also a demo for the **@bacons/apple-targets** plugin, which handles much of the heavy lifting in setting up Apple-specific targets for React Native and Expo projects.
+
+## 📌 About This Project
+
+This project demonstrates how to create Control Widgets using WidgetKit and App Intents, while also showcasing how @bacons/apple-targets simplifies iOS-specific widgets configurations in Expo projects.
+
+## ✨ Features
+- 🔘 Buttons – Perform quick actions, such as launching an app or running a shortcut.
+- 🎚 Toggles – Control boolean states like turning something on/off.
+- 📱 Integration with System Spaces – Add widgets to Control Center, the Lock Screen, and the Action button.
+- ⚡ Built with WidgetKit – Uses Apple’s latest framework for seamless performance.
+- 🛠 Powered by @bacons/apple-targets – Automates the setup of Apple targets in Expo projects.
+
+## 🛠 Setup & Installation
+1.	Clone the repository:
+
+```bash
+git https://github.com/akshayjadhav4/RNControlWidget.git
+cd RNControlWidget
+```
+2. Install dependencies:
+   
+```bash
+npm install
+```
+
+3. Add Apple Team ID in app.json
+
+```json
+
+    "ios": {
+      "appleTeamId": "YOUR_TEAM_ID",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.smart-home",
+      "entitlements": {
+        "com.apple.security.application-groups": [
+          "group.com.anonymous.smart-home"
+        ]
+      }
+    },
+
+```
+
+4. Generate iOS project
+   
+```bash
+npx expo prebuild -p ios
+```
+
+5. Run App
+   
+```bash
+npx expo run:ios
+```
+
+
+## 📷 Preview
+
 |  |  |
 |----------|----------|
 | ![Add a Control](https://github.com/user-attachments/assets/acd23b28-93ed-45e0-a512-6601c00a836e) | ![Config Control 1](https://github.com/user-attachments/assets/7ccca75b-e544-4a2e-88a3-b00c14938744) |
