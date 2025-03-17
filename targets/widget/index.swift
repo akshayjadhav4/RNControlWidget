@@ -7,6 +7,7 @@ struct exportWidgets: WidgetBundle {
     // Export widgets here
     if #available(iOSApplicationExtension 18, *) {
       DeviceToggle()
+      LaunchSettings()
     }
   }
 }
