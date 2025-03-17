@@ -1,12 +1,8 @@
 # 🚀 iOS Control Widgetd in Expo App
 
-Ever wished you could replace the Lock Screen’s flashlight and camera shortcuts with something more useful—like a quick toggle for smart home controls or an instant app action? With iOS 18, that’s now possible! Control Widgets let apps integrate directly into system spaces like Control Center, the Lock Screen, and the Action button, making key actions more accessible than ever.
-
-This project is also a demo for the **@bacons/apple-targets** plugin, which handles much of the heavy lifting in setting up Apple-specific targets for React Native and Expo projects.
-
 ## 📌 About This Project
 
-This project demonstrates how to create Control Widgets using WidgetKit and App Intents, while also showcasing how @bacons/apple-targets simplifies iOS-specific widgets configurations in Expo projects.
+This project demonstrates how to create Control Widgets using @bacons/apple-targets for iOS-specific widgets configurations in Expo projects.
 
 ## ✨ Features
 - 🔘 Buttons – Perform quick actions, such as launching an app or running a shortcut.
